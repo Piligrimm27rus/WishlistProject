@@ -1,4 +1,5 @@
 ﻿using System;
+using WishlistLibrary;
 using WishlistLibrary.Controllers;
 using WishlistLibrary.Models;
 
@@ -7,41 +8,56 @@ namespace WishlistProject
 {
     class GraphTest
     {
-        ShopController shopController;
+        GraphController graphController;
         public GraphTest()
         {
-            shopController = new ShopController();
+            Random rnd = new Random();
+            graphController = new GraphController();
 
-            var location1 = new Home("Дом", "Даниловского 29");
-            var location2 = new Shop("Пятерочка", "Стрельникова");
-            var location3 = new Shop("Десяточка", "Бондаря 19");
+            var location1 = new Home("A", "Пушкино 31");
+            var location2 = new Shop("B", "Стрельникова 1") { Products = { new Product("Банан", rnd.Next(10,50)), new Product("Лук", rnd.Next(10,50)) } };
+            var location3 = new Shop("C", "Стрельникова 2") { Products = { new Product("Чеснок", rnd.Next(10,50)), new Product("Помело", rnd.Next(10,50)) } };
+            var location4 = new Shop("D", "Стрельникова 3") { Products = { new Product("Груша", rnd.Next(10,50)), new Product("Суп", rnd.Next(10,50)) } };
+            var location5 = new Shop("E", "Стрельникова 4") { Products = { new Product("Орех", rnd.Next(10,50)), new Product("Морковь", rnd.Next(10,50)) } };
+            var location6 = new Shop("F", "Стрельникова 5") { Products = { new Product("Йогурт", rnd.Next(10,50)), new Product("Каша", rnd.Next(10,50)) } };
+            var location7 = new Shop("G", "Стрельникова 6") { Products = { new Product("Дыня", rnd.Next(10,50)), new Product("Горох", rnd.Next(10,50)) } };
 
-            shopController.AddNewLocation(location1);
-            shopController.AddNewLocation(location2);
-            shopController.AddNewLocation(location3);
+            //добавление вершин
+            graphController.AddNewLocation(location1);
+            graphController.AddNewLocation(location2);
+            graphController.AddNewLocation(location3);
+            graphController.AddNewLocation(location4);
+            graphController.AddNewLocation(location5);
+            graphController.AddNewLocation(location6);
+            graphController.AddNewLocation(location7);
 
-            shopController.AddNewRoad(location1, location2, 1);
-            shopController.AddNewRoad(location1, location3, 1);
+            //Добавление дорог
+            graphController.AddNewRoad(location1, location2, 22);
+            graphController.AddNewRoad(location1, location3, 33); //A-C
+            graphController.AddNewRoad(location1, location4, 61);
+            graphController.AddNewRoad(location2, location3, 47);
+            graphController.AddNewRoad(location2, location5, 93);
+            graphController.AddNewRoad(location3, location4, 11); //C-D
+            graphController.AddNewRoad(location3, location5, 79);
+            graphController.AddNewRoad(location3, location6, 63);
+            graphController.AddNewRoad(location4, location6, 41); //D-F
+            graphController.AddNewRoad(location5, location6, 17); //F-E
+            graphController.AddNewRoad(location5, location7, 58); //E-G
+            graphController.AddNewRoad(location6, location7, 84);
 
-            var matrix = shopController.GetMatrix();
+            var path1 = graphController.FindShortestPath("A", "G"); //ACDFEG
 
-            for (int i = 0; i < matrix.GetLength(0); i++)
+
+            for (int i = 0; i < path1.Count; i++)
             {
-                for (int k = 0; k < matrix.GetLength(1); k++)
-                {
-                    Console.Write(matrix[i, k].ToString() + "\t");
-                }
-
-                Console.WriteLine();
+                Console.WriteLine(path1[i].Location);
             }
-
-            AllRoadsFrom(location1);
         }
 
         private void AllRoadsFrom(ILocation location)
         {
             Console.WriteLine(location + ": ");
-            foreach (var item in shopController.GetLocationsFrom(location))
+            foreach (var item in graphController.GetLocationsFrom(location))
             {
                 Console.Write(item + ", ");
             }
