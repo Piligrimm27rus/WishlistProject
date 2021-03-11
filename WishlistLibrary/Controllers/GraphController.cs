@@ -11,7 +11,7 @@ namespace WishlistLibrary.Controllers
         List<GraphVertexInfo> infos;
 
         private List<RoadFromTo> roads { get; } //Edge
-        private List<ILocation> locations { get; } //Vertex
+        public List<ILocation> locations { get; } //Vertex
 
         public int LocationsCount => locations.Count;
         public int RoadsCount => roads.Count;
@@ -54,6 +54,23 @@ namespace WishlistLibrary.Controllers
             RoadFromTo roadTo = new RoadFromTo(to, from, lenght);
             roads.Add(roadFrom);
             roads.Add(roadTo);
+        }
+
+        public double GetDistance(List<ILocation> path)
+        {
+            double sum = 0;
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                for (int k = 0; k < roads.Count; k++)
+                {
+                    if (roads[k].From == path[i] && roads[k].To == path[i + 1])
+                    {
+                        sum += roads[k].Lenght;
+                    }
+                }
+            }
+
+            return sum;
         }
 
         public double[,] GetMatrix()

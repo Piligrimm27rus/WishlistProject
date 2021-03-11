@@ -43,7 +43,8 @@ namespace WishlistLibrary.Controllers
 
         public void SetNewData(double fuelPrice)
         {
-            currentFuel.Price = fuelPrice;
+            fuels[fuels.Count - 1].Price = fuelPrice;
+            currentFuel = fuels[fuels.Count - 1];
             Save(FILE_NAME, fuels);
         }
     }

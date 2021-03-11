@@ -41,7 +41,8 @@ namespace WishlistLibrary.Controllers
 
         public void SetNewCar(string carModel, Fuel fuel,double carExpenditure)
         {
-            currentCar = new Car(carModel, fuel, carExpenditure);
+            cars[cars.Count - 1] = new Car(carModel, fuel, carExpenditure);
+            currentCar = cars[cars.Count - 1];
             Save(FILE_NAME, cars);
         }
     }

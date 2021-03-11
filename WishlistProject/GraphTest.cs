@@ -8,19 +8,19 @@ namespace WishlistProject
 {
     class GraphTest
     {
-        GraphController graphController;
+        public GraphController graphController;
         public GraphTest()
         {
             Random rnd = new Random();
             graphController = new GraphController();
 
-            var location1 = new Home("A", "Пушкино 31");
-            var location2 = new Shop("B", "Стрельникова 1") { Products = { new Product("Банан", rnd.Next(10,50)), new Product("Лук", rnd.Next(10,50)) } };
-            var location3 = new Shop("C", "Стрельникова 2") { Products = { new Product("Чеснок", rnd.Next(10,50)), new Product("Помело", rnd.Next(10,50)) } };
-            var location4 = new Shop("D", "Стрельникова 3") { Products = { new Product("Груша", rnd.Next(10,50)), new Product("Суп", rnd.Next(10,50)) } };
-            var location5 = new Shop("E", "Стрельникова 4") { Products = { new Product("Орех", rnd.Next(10,50)), new Product("Морковь", rnd.Next(10,50)) } };
-            var location6 = new Shop("F", "Стрельникова 5") { Products = { new Product("Йогурт", rnd.Next(10,50)), new Product("Каша", rnd.Next(10,50)) } };
-            var location7 = new Shop("G", "Стрельникова 6") { Products = { new Product("Дыня", rnd.Next(10,50)), new Product("Горох", rnd.Next(10,50)) } };
+            var location1 = new Home("Дом", "Пушкино 31");
+            var location2 = new Shop("Пятерочка", "Стрельникова 1") { Products = { new Product("Банан", rnd.Next(10,50)), new Product("Лук", rnd.Next(10,50)) } };
+            var location3 = new Shop("Самбери", "Стрельникова 2") { Products = { new Product("Чеснок", rnd.Next(10,50)), new Product("Помело", rnd.Next(10,50)) } };
+            var location4 = new Shop("Продукты шмадукты", "Стрельникова 3") { Products = { new Product("Груша", rnd.Next(10,50)), new Product("Суп", rnd.Next(10,50)) } };
+            var location5 = new Shop("Светофор", "Стрельникова 4") { Products = { new Product("Орех", rnd.Next(10,50)), new Product("Морковь", rnd.Next(10,50)) } };
+            var location6 = new Shop("Десяточка", "Стрельникова 5") { Products = { new Product("Йогурт", rnd.Next(10,50)), new Product("Каша", rnd.Next(10,50)) } };
+            var location7 = new Shop("Девяточка", "Стрельникова 6") { Products = { new Product("Дыня", rnd.Next(10,50)), new Product("Горох", rnd.Next(10,50)) } };
 
             //добавление вершин
             graphController.AddNewLocation(location1);
@@ -45,13 +45,13 @@ namespace WishlistProject
             graphController.AddNewRoad(location5, location7, 58); //E-G
             graphController.AddNewRoad(location6, location7, 84);
 
-            var path1 = graphController.FindShortestPath("A", "G"); //ACDFEG
+            //var path1 = graphController.FindShortestPath("A", "G"); //ACDFEG
 
 
-            for (int i = 0; i < path1.Count; i++)
-            {
-                Console.WriteLine(path1[i].Location);
-            }
+            //for (int i = 0; i < path1.Count; i++)
+            //{
+            //    Console.WriteLine(path1[i].Location);
+            //}
         }
 
         private void AllRoadsFrom(ILocation location)
